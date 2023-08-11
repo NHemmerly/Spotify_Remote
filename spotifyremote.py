@@ -7,6 +7,14 @@ from spotipy.oauth2 import SpotifyOAuth
 
 # userID: neilhemm0 or 023e099b16264e2c
 
+def actions(action, device):
+    if (action == 'next'):
+        sp.next_track(device_id=device)
+    elif (action == 'pause'):
+        sp.pause_playback(device_id=device)
+    elif (action == 'previous'):
+        sp.previous_track(device_id=device)
+
 # Client ID and Client Secret
 
 load_dotenv()
@@ -17,7 +25,7 @@ SPOTIPY_REDIRECT_URI = os.getenv("REDIRECT_URI")
 
 # arguments
 
-action = sys.argv[1]
+# action = sys.argv[1]
 
 # Scope
 
@@ -34,18 +42,21 @@ spotifyObject = spotipy.Spotify(auth=USER_TOKEN)
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scopes))
 
 # actions
-if (action == 'next'):
-    sp.next_track(device_id='8b0a4b0e7081bf8c96a61b19c5e9553e47f15648')
-elif (action == 'pause'):
-    sp.pause_playback(device_id='8b0a4b0e7081bf8c96a61b19c5e9553e47f15648')
-elif (action == 'previous'):
-    sp.previous_track(device_id='8b0a4b0e7081bf8c96a61b19c5e9553e47f15648')
+device = sp.devices()['devices'][0]['id']
+print(device)
+
+while True:
+    action = input()
+    try:
+        actions(action, device)
+    except:
+        device = sp.devices()['devices'][0]['id']
+        actions(action, device)
+
+    
 
 # Nice to have functionality
 # repeat(state, device_id=None)
 # shuffle(state, device_id=None)
 
 # Test for DeviceInfo
-
-device = sp.devices()
-print(device)
