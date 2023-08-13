@@ -4,6 +4,7 @@ import spotipy
 from dotenv import load_dotenv
 import spotipy.util as util
 from spotipy.oauth2 import SpotifyOAuth
+import server_socket
 
 # userID: neilhemm0 or 023e099b16264e2c
 
@@ -46,17 +47,13 @@ device = sp.devices()['devices'][0]['id']
 print(device)
 
 while True:
-    action = input()
+    action = server_socket.start()
     try:
         actions(action, device)
     except:
         device = sp.devices()['devices'][0]['id']
         actions(action, device)
 
-    
-
 # Nice to have functionality
 # repeat(state, device_id=None)
 # shuffle(state, device_id=None)
-
-# Test for DeviceInfo

@@ -3,7 +3,7 @@ import sys
 
 # Client will connect to the server IP in practice
 
-HOST = "127.0.0.1"
+HOST = "192.168.1.131"
 PORT = 9099
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
