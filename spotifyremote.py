@@ -9,12 +9,39 @@ import server_socket
 # userID: neilhemm0 or 023e099b16264e2c
 
 def actions(action, device):
-    if (action == 'next'):
+
+    item = (sp.currently_playing())
+    playback = sp.current_playback()
+    
+    if (action == '0'):
         sp.next_track(device_id=device)
-    elif (action == 'pause'):
-        sp.pause_playback(device_id=device)
-    elif (action == 'previous'):
-        sp.previous_track(device_id=device)
+
+    elif (action == '1'):
+        if not item['is_playing']:
+            sp.start_playback(device_id=device)
+
+        else:
+            sp.pause_playback(device_id=device)
+
+    elif (action == '2'):
+            sp.previous_track(device_id=device)
+
+    elif (action == '3'):
+        if not playback['shuffle_state']:
+            sp.shuffle(True, device)
+
+        else:
+            sp.shuffle(False, device)
+
+    elif (action == '4'):
+        if playback['repeat_state'] == 'track':
+            sp.repeat('context', device)
+
+        elif playback['repeat_state'] == 'context':
+            sp.repeat('off', device)
+
+        elif playback['repeat_state'] == 'off':
+            sp.repeat('track', device)
 
 # Client ID and Client Secret
 
@@ -44,9 +71,9 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scopes))
 
 # actions
 device = sp.devices()['devices'][0]['id']
-print(device)
 
 while True:
+
     action = server_socket.start()
     try:
         actions(action, device)
@@ -54,6 +81,3 @@ while True:
         device = sp.devices()['devices'][0]['id']
         actions(action, device)
 
-# Nice to have functionality
-# repeat(state, device_id=None)
-# shuffle(state, device_id=None)
