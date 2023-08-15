@@ -35,7 +35,7 @@ def actions(action, device):
         else:
             sp.shuffle(False, device)
 
-    elif (action == '4') and 'toggling_repeat' not in disallows:
+    elif (action == '4') and 'toggling_repeat_track' not in disallows:
         if playback['repeat_state'] == 'track':
             sp.repeat('context', device)
 
@@ -71,8 +71,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scopes))
 device = sp.devices()['devices'][0]['id']
 
 while True:
-    action = '1'
-    #action = server_socket.start()
+    action = server_socket.start()
     try:
         actions(action, device)
     except:
