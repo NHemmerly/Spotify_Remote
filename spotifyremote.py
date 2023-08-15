@@ -11,7 +11,9 @@ import server_socket
 def actions(action, device):
 
     item = (sp.currently_playing())
+    disallows = item['actions']['disallows'].keys()
     playback = sp.current_playback()
+    print(item['actions'])
 
     if (action == '0'):
         sp.next_track(device_id=device)
@@ -26,14 +28,14 @@ def actions(action, device):
     elif (action == '2'):
             sp.previous_track(device_id=device)
 
-    elif (action == '3'):
+    elif (action == '3') and 'toggling_shuffle' not in disallows:
         if not playback['shuffle_state']:
             sp.shuffle(True, device)
 
         else:
             sp.shuffle(False, device)
 
-    elif (action == '4'):
+    elif (action == '4') and 'toggling_repeat' not in disallows:
         if playback['repeat_state'] == 'track':
             sp.repeat('context', device)
 
@@ -69,8 +71,8 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scopes))
 device = sp.devices()['devices'][0]['id']
 
 while True:
-
-    action = server_socket.start()
+    action = '1'
+    #action = server_socket.start()
     try:
         actions(action, device)
     except:
