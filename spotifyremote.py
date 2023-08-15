@@ -12,7 +12,7 @@ def actions(action, device):
 
     item = (sp.currently_playing())
     playback = sp.current_playback()
-    
+
     if (action == '0'):
         sp.next_track(device_id=device)
 
@@ -51,10 +51,6 @@ SPOTIPY_CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 USER_TOKEN = os.getenv("USER_TOKEN")
 SPOTIPY_REDIRECT_URI = os.getenv("REDIRECT_URI")
 
-# arguments
-
-# action = sys.argv[1]
-
 # Scope
 
 modifyPlayback = "user-modify-playback-state"
@@ -69,7 +65,7 @@ spotifyObject = spotipy.Spotify(auth=USER_TOKEN)
 
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scopes))
 
-# actions
+# action loop
 device = sp.devices()['devices'][0]['id']
 
 while True:
