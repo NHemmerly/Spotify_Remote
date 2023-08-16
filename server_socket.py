@@ -11,7 +11,7 @@ def start():
 
     # Host and port to use for server-side socket
 
-    HOST = "192.168.1.131" 
+    HOST = "" 
     PORT = 9099
     
     # Declares socket object

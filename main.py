@@ -27,28 +27,17 @@ repeatTogg = machine.Pin(11, machine.Pin.IN,machine.Pin.PULL_DOWN)
 while True:
     if nextSong.value():
         command = '0'
-        callSpot.callSpot(command)
-        gc.collect()
-        gc.mem_free()
     elif pauseTogg.value():
         command = '1'
-        callSpot.callSpot(command)
-        gc.collect()
-        gc.mem_free()
     elif prevSong.value():
         command = '2'
-        callSpot.callSpot(command)
-        gc.collect()
-        gc.mem_free()
     elif shuffleTogg.value():
         command = '3'
-        callSpot.callSpot(command)
-        gc.collect()
-        gc.mem_free()
     elif repeatTogg.value():
         command = '4'
-        callSpot.callSpot(command)
-        gc.collect()
-        gc.mem_free()
+
+    callSpot.callSpot(command)
+    gc.collect()
+    gc.mem_free()
         
     

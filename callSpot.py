@@ -1,7 +1,7 @@
 import usocket as socket
 import utime
 
-HOST = "192.168.1.131"
+HOST = ""
 PORT = 9099
 
 def callSpot(command):
