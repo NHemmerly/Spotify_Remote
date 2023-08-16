@@ -8,12 +8,12 @@ import server_socket
 
 # userID: neilhemm0 or 023e099b16264e2c
 
+# Controls all actions. 
 def actions(action, device):
 
     item = (sp.currently_playing())
     disallows = item['actions']['disallows'].keys()
     playback = sp.current_playback()
-    print(item['actions'])
 
     if (action == '0'):
         sp.next_track(device_id=device)
@@ -48,10 +48,10 @@ def actions(action, device):
 # Client ID and Client Secret
 
 load_dotenv()
-SPOTIPY_CLIENT_ID = os.getenv("CLIENT_ID")
-SPOTIPY_CLIENT_SECRET = os.getenv("CLIENT_SECRET")
+SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
+SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
 USER_TOKEN = os.getenv("USER_TOKEN")
-SPOTIPY_REDIRECT_URI = os.getenv("REDIRECT_URI")
+SPOTIPY_REDIRECT_URI = os.getenv("SPOTIPY_REDIRECT_URI")
 
 # Scope
 
@@ -68,11 +68,15 @@ spotifyObject = spotipy.Spotify(auth=USER_TOKEN)
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scopes))
 
 # action loop
+
+# Updates to current device
 device = sp.devices()['devices'][0]['id']
 
 while True:
+    # Gathers command from socket
     action = server_socket.start()
     try:
+        # Sends command to API
         actions(action, device)
     except:
         device = sp.devices()['devices'][0]['id']
