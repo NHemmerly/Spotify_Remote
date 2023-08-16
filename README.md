@@ -112,4 +112,24 @@ Exporting code to the Raspberry Pi Pico is a little more complicated than a regu
 
 After installing the micropython firmware to the Pico and connecting the Pico to your computer in 'run' mode, open both the ```main.py``` and ```callSpot.py``` files in Thonny.
 
-First, 'save as' while the ```main.py``` code is opened on thonny and a prompt should open that asks to save on either 'this computer' or the name of the connected microcontroller. Note that the 'ssid' and 'password' in the ```main.py``` file should be changed to an available wifi network's information. After the ```main.py``` files is saved to the microcontroller, the ```callSpot.py``` file should also be saved to the microcontroller in the same fashion, also note that the 'HOST' variable in ```callSpot.py``` should be changed to the same IP address that is assigned to the server running ```server_socket.py```
+First, 'save as' while the ```main.py``` code is opened on thonny and a prompt should open that asks to save on either 'this computer' or the name of the connected microcontroller. Note that the 'ssid' and 'password' in the ```main.py``` file should be changed to an available wifi network's information. After the ```main.py``` file is saved to the microcontroller, the ```callSpot.py``` file should also be saved to the microcontroller in the same fashion, also note that the 'HOST' variable in ```callSpot.py``` should be changed to the same IP address that is assigned to the server running ```server_socket.py```.
+
+#### Wiring the Pico
+
+The GPIO pins to connect headers to can be found in the ```main.py``` code. They are also listed below for simplicity. Each Mechanical switch besides the reset key should have one switch pin connected to a GPIO pin and the other pin connected to ```3v3(OUT)``` on pin 36. 
+
+- Next Song key on GPIO 15
+- Pause/Play key on GPIO 14
+- Previous Song key on GPIO 13
+- Shuffle key on GPIO 12
+- Repeat key on GPIO 11
+
+[Here](https://www.raspberrypi.com/documentation/microcontrollers/images/picow-pinout.svg) is a link to the Pi Pico W pinout diagram. 
+
+The reset key will be connected to the 'RUN' pin on pin 30 and any 'GND' pin such as pin 28. 
+
+*WIP Will include images of my final product with wiring here*
+
+## Summary
+
+It's difficult to determine how easily one can follow the above documentation without any feedback, but if a reader does feel like following the above steps and has any feedback on how it can be improved feel free to leave a comment in the discussions page for this project! 
