@@ -9,8 +9,8 @@ import gc
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 
-ssid='loveisland(uk)'
-password='EatSleepSnog123'
+ssid=''
+password=''
 wlan.connect(ssid, password)
 
 nextSong = machine.Pin(15, machine.Pin.IN, machine.Pin.PULL_DOWN)
