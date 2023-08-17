@@ -14,6 +14,7 @@ def actions(action, device):
     item = (sp.currently_playing())
     disallows = item['actions']['disallows'].keys()
     playback = sp.current_playback()
+    print(disallows)
 
     if (action == '0'):
         sp.next_track(device_id=device)
@@ -35,7 +36,7 @@ def actions(action, device):
         else:
             sp.shuffle(False, device)
 
-    elif (action == '4') and 'toggling_repeat_track' not in disallows:
+    elif (action == '4') and ('toggling_repeat_track' not in disallows) or ('toggling_repeat_context' not in disallows):
         if playback['repeat_state'] == 'track':
             sp.repeat('context', device)
 
@@ -74,7 +75,8 @@ device = sp.devices()['devices'][0]['id']
 
 while True:
     # Gathers command from socket
-    action = server_socket.start()
+    #action = server_socket.start()
+    action = '4'
     try:
         # Sends command to API
         actions(action, device)
